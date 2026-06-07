@@ -1,0 +1,32 @@
+# Example: add CRA evidence to every build.
+# Copy this to .github/workflows/cra-check.yml in your product repo.
+
+name: cra-check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cra-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      # Option A - use the published action (free, OSS):
+      - uses: w1ck3ds0d4/CRA-Check@v1
+        with:
+          path: '.'
+          fail-on: 'off'        # set to 'critical' to block releases on critical CVEs
+
+      # Option B - if you vendored this kit, point at the local action instead:
+      # - uses: ./cradesk-kit/ci
+
+      # The action uploads:
+      #   cra-sbom.json     (CycloneDX SBOM)
+      #   cra-evidence.json (machine-readable CRA evidence for the technical file)
+      #   cra-report.md     (human-readable summary, also shown in the job summary)

@@ -1,0 +1,65 @@
+name: 'cra-check'
+description: 'CRA readiness check: generate a CycloneDX SBOM, scan for vulnerabilities, and emit a CRA evidence artifact + report on every build.'
+author: 'Wicked Kittens'
+branding:
+  icon: 'shield'
+  color: 'purple'
+
+inputs:
+  path:
+    description: 'Directory to scan'
+    required: false
+    default: '.'
+  fail-on:
+    description: 'Fail the job on this severity or above: off | high | critical'
+    required: false
+    default: 'off'
+  artifact-name:
+    description: 'Name of the uploaded evidence artifact'
+    required: false
+    default: 'cra-evidence'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Syft and Grype
+      shell: bash
+      run: |
+        mkdir -p "$RUNNER_TEMP/cra-bin"
+        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b "$RUNNER_TEMP/cra-bin"
+        curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b "$RUNNER_TEMP/cra-bin"
+        echo "$RUNNER_TEMP/cra-bin" >> "$GITHUB_PATH"
+
+    - name: Generate SBOM (CycloneDX)
+      shell: bash
+      run: syft scan "dir:${{ inputs.path }}" -o cyclonedx-json=cra-sbom.json
+
+    - name: Scan for vulnerabilities
+      shell: bash
+      continue-on-error: true
+      run: grype "sbom:cra-sbom.json" -o json --file grype.json
+
+    - name: Generate CRA report + evidence
+      shell: bash
+      run: |
+        python3 "${{ github.action_path }}/cra_report.py" \
+          --sbom cra-sbom.json \
+          --grype grype.json \
+          --out-md cra-report.md \
+          --out-json cra-evidence.json \
+          --fail-on "${{ inputs.fail-on }}"
+
+    - name: Add report to job summary
+      if: always()
+      shell: bash
+      run: cat cra-report.md >> "$GITHUB_STEP_SUMMARY" || true
+
+    - name: Upload evidence
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: |
+          cra-sbom.json
+          cra-evidence.json
+          cra-report.md
