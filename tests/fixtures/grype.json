@@ -1,0 +1,12 @@
+{
+  "matches": [
+    {
+      "vulnerability": { "id": "CVE-2025-0001", "severity": "Critical", "fix": { "versions": ["1.0.1"] } },
+      "artifact": { "name": "libfoo", "version": "1.0.0" }
+    },
+    {
+      "vulnerability": { "id": "CVE-2025-0002", "severity": "High", "fix": { "versions": [] } },
+      "artifact": { "name": "libbar", "version": "2.0.0" }
+    }
+  ]
+}
