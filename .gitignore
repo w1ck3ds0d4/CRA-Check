@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# CRA-Check outputs
+cra-sbom.json
+cra-evidence.json
+cra-report.md
+grype.json
