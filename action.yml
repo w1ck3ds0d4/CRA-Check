@@ -45,6 +45,7 @@ runs:
         python3 "${{ github.action_path }}/cra_report.py" \
           --sbom cra-sbom.json \
           --grype grype.json \
+          --repo-dir "${{ inputs.path }}" \
           --out-md cra-report.md \
           --out-json cra-evidence.json \
           --fail-on "${{ inputs.fail-on }}"

@@ -2,7 +2,7 @@
 
 **A free GitHub Action that turns every build into EU CRA evidence.**
 
-CRA-Check generates a CycloneDX SBOM (via Syft), scans it for known vulnerabilities (via Grype), and emits a machine-readable `cra-evidence.json` plus a human-readable `cra-report.md` mapped to EU Cyber Resilience Act requirements (Annex I Part II, Annex VII). It is the free, open-source entry point to the CRADesk compliance tooling line.
+CRA-Check generates a CycloneDX SBOM (via Syft), scans it for known vulnerabilities (via Grype), inspects the repository for security-policy evidence, and emits a machine-readable `cra-evidence.json` plus a human-readable `cra-report.md` mapped to EU Cyber Resilience Act requirements (Annex I Part II, Annex VII). It is the free, open-source entry point to the CRADesk compliance tooling line.
 
 ---
 
@@ -16,6 +16,21 @@ CRA-Check generates a CycloneDX SBOM (via Syft), scans it for known vulnerabilit
 ```
 
 See `example-workflow.yml` for a complete pipeline. Each run uploads `cra-sbom.json`, `cra-evidence.json`, and `cra-report.md` as build artifacts and posts the report to the GitHub job summary.
+
+---
+
+## CRA gap checks
+
+CRA-Check emits **14** gap checks (each `pass` / `warn` / `fail`) across four evidence sources:
+
+| Source | Checks |
+| --- | --- |
+| **Vulnerabilities** | no Critical at release · remediate High+ · no **known-exploited (CISA KEV)** · no **unfixable** Critical/High · **fix-available** triage · scan **DB freshness** |
+| **SBOM** | SBOM present · product declared as `metadata.component` · generation **provenance** (timestamp + tool) · component **identifiers** (purl/CPE + version) · component **license** coverage |
+| **Repository** | **coordinated vulnerability disclosure** policy (`SECURITY.md` / `security.txt`) · RFC 9116 **`security.txt`** |
+| **Process** | a vulnerability scan was run |
+
+Hard requirements `fail` (missing SBOM, a Critical at release, a known-exploited CVE, no CVD policy); SBOM-quality and advisory signals `warn` so they never block a release on their own. Each check cites its CRA Annex I / Article basis in the report.
 
 ---
 
