@@ -1,0 +1,5 @@
+# RFC 9116 security contact for this repository.
+Contact: https://github.com/w1ck3ds0d4/CRA-Check/security/advisories/new
+Policy: https://github.com/w1ck3ds0d4/CRA-Check/blob/main/SECURITY.md
+Preferred-Languages: en
+Expires: 2027-12-31T23:59:59Z
