@@ -2,24 +2,48 @@
 
 **A free GitHub Action that turns every build into EU CRA evidence.**
 
-CRA-Check generates a CycloneDX SBOM (via Syft), scans it for known vulnerabilities (via Grype), inspects the repository for security-policy evidence, and emits a machine-readable `cra-evidence.json` plus a human-readable `cra-report.md` mapped to EU Cyber Resilience Act requirements (Annex I Part II, Annex VII). It is the free, open-source entry point to the CRADesk compliance tooling line.
+CRA-Check generates a CycloneDX SBOM (via Syft), scans it for known vulnerabilities (via Grype), inspects the repository for security-policy evidence, and emits a machine-readable `cra-evidence.json` plus a human-readable `cra-report.md` mapped to EU Cyber Resilience Act requirements (Annex I Part II, Annex VII). A composite Action plus one dependency-free Python script; no server, no account, nothing leaves your CI.
 
 ---
 
-## Usage
+## Getting Started
+
+Add a workflow to the repository you want evidence for:
 
 ```yaml
-- uses: w1ck3ds0d4/CRA-Check@v1
-  with:
-    path: '.'
-    fail-on: 'off'   # set to 'critical' to block releases on critical CVEs
+# .github/workflows/cra-check.yml
+name: CRA evidence
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  cra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: w1ck3ds0d4/CRA-Check@v1
+        with:
+          path: '.'
+          fail-on: 'off'   # set to 'critical' to block releases on critical CVEs
 ```
 
 See `example-workflow.yml` for a complete pipeline. Each run uploads `cra-sbom.json`, `cra-evidence.json`, and `cra-report.md` as build artifacts and posts the report to the GitHub job summary.
 
+### Inputs
+
+| Input | Default | Meaning |
+| --- | --- | --- |
+| `path` | `.` | Directory to scan; also the repository root for the security-policy evidence checks |
+| `fail-on` | `off` | Exit policy: `off`, `high`, or `critical` |
+| `artifact-name` | `cra-evidence` | Name of the uploaded evidence artifact |
+
 ---
 
-## CRA gap checks
+## Features (Built)
+
+### CRA gap checks
 
 CRA-Check emits **14** gap checks (each `pass` / `warn` / `fail`) across four evidence sources:
 
@@ -30,11 +54,9 @@ CRA-Check emits **14** gap checks (each `pass` / `warn` / `fail`) across four ev
 | **Repository** | **coordinated vulnerability disclosure** policy (`SECURITY.md` / `security.txt`) · RFC 9116 **`security.txt`** |
 | **Process** | a vulnerability scan was run |
 
-Hard requirements `fail` (missing SBOM, a Critical at release, a known-exploited CVE, no CVD policy); SBOM-quality and advisory signals `warn` so they never block a release on their own. Each check cites its CRA Annex I / Article basis in the report.
+Hard requirements `fail` (missing SBOM, a Critical at release, a known-exploited CVE, no CVD policy); SBOM-quality and advisory signals `warn` so they never block a release on their own. Each check cites the CRA Annex I / Article obligation it supports in the report. The severity-based checks use scanner severity as a practical engineering signal toward the CRA's "no known exploitable vulnerabilities" requirement; they are evidence for your assessment, not a legal determination of exploitability.
 
----
-
-## What it produces
+### Artifacts
 
 | Artifact | Purpose |
 | --- | --- |
@@ -44,30 +66,43 @@ Hard requirements `fail` (missing SBOM, a Critical at release, a known-exploited
 
 ---
 
-## How it works
+## Tech Stack
 
-- **`action.yml`** - composite Action: Syft (SBOM) + Grype (vulnerability scan) + evidence assembly.
-- **`cra_report.py`** - turns the SBOM and scan output into the evidence JSON and the CRA-mapped report.
-- **`example-workflow.yml`** - drop-in workflow you can copy into `.github/workflows/`.
+| Layer | Technology |
+| --- | --- |
+| Action | Composite GitHub Action (`action.yml`), scanners pinned by version |
+| SBOM | Syft (CycloneDX JSON) |
+| Vulnerability scan | Grype |
+| Report generator | Python 3 (stdlib only, no dependencies) - `cra_report.py` |
+| Tests | pytest (21 tests) + CI on every push |
 
 ---
 
-## Status
+## Prerequisites
 
-Core Action and report generator are built and smoke-tested. Next: tag `v1` and publish to the GitHub Marketplace.
+- A GitHub repository with Actions enabled. That is all: the Action installs pinned Syft/Grype into the runner's temp directory at run time.
+- To run the report generator locally: Python 3.10+.
+
+```bash
+# local run against existing scanner output
+python cra_report.py --sbom cra-sbom.json --grype grype.json --repo-dir . \
+  --out-json cra-evidence.json --out-md cra-report.md
+```
+
+---
+
+## What's Not Yet Built
+
+- EOL (end-of-life) component detection alongside the CVE checks.
+- A `--format html` report variant.
+- Aggregate mode (one report across many repositories).
+
+The dossier generation layer (Annex VII technical documentation, Article 14 incident drafts, continuous CVE watch, tamper-evident evidence ledger) is the commercial **CRADesk** product line built on top of this Action, together with the [ProofLog](https://github.com/w1ck3ds0d4/ProofLog) tamper-evident audit-log SDK and the [SecureCheck](https://github.com/w1ck3ds0d4/SecureCheck) security-scan workflow.
 
 > **Not legal advice.** Engineering tooling and guidance; it does not by itself guarantee CRA compliance.
 
 ---
 
-## Where it fits
-
-CRA-Check is the free top of the **CRADesk** open-core ladder:
-
-[CRA-Check](https://github.com/w1ck3ds0d4/CRA-Check) (free Action) -> [CRADesk-Kit](https://github.com/w1ck3ds0d4/CRADesk-Kit) -> [CRADesk-Inline](https://github.com/w1ck3ds0d4/CRADesk-Inline) (IDE) -> hosted [CRADesk](https://github.com/w1ck3ds0d4/CRADesk) Cloud.
-
----
-
 ## License
 
-MIT / Apache-2.0 (permissive, for adoption).
+Licensed under the [Apache License, Version 2.0](LICENSE).

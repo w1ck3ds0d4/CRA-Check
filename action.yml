@@ -26,8 +26,9 @@ runs:
       shell: bash
       run: |
         mkdir -p "$RUNNER_TEMP/cra-bin"
-        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b "$RUNNER_TEMP/cra-bin"
-        curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b "$RUNNER_TEMP/cra-bin"
+        # Pinned versions: a compliance-evidence tool must not install scanners from a moving branch.
+        curl -sSfL https://raw.githubusercontent.com/anchore/syft/v1.45.1/install.sh | sh -s -- -b "$RUNNER_TEMP/cra-bin" v1.45.1
+        curl -sSfL https://raw.githubusercontent.com/anchore/grype/v0.114.0/install.sh | sh -s -- -b "$RUNNER_TEMP/cra-bin" v0.114.0
         echo "$RUNNER_TEMP/cra-bin" >> "$GITHUB_PATH"
 
     - name: Generate SBOM (CycloneDX)
@@ -57,7 +58,7 @@ runs:
 
     - name: Upload evidence
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
       with:
         name: ${{ inputs.artifact-name }}
         path: |
