@@ -10,3 +10,6 @@ cra-sbom.json
 cra-evidence.json
 cra-report.md
 grype.json
+
+# ...but keep the bundled State of CRA Readiness scaffold samples
+!state-of-cra/samples/**/cra-evidence.json
