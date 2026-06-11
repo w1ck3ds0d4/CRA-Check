@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-06-09T10:00:00Z",
+  "tool": "cra-check (CRADesk Kit)",
+  "disclaimer": "SAMPLE - synthetic evidence for the State of CRA Readiness scaffold. Not a real scan.",
+  "sbom": { "present": true, "format": "CycloneDX", "componentCount": 86, "hasMetadataComponent": true },
+  "vulnerabilities": { "counts": { "critical": 0, "high": 0, "medium": 2, "low": 5, "negligible": 0, "unknown": 0 }, "scanned": true, "findings": [] },
+  "craChecks": [
+    { "id": "ANNEX-I-II-SBOM", "requirement": "Maintain a machine-readable SBOM of components (Annex I Part II).", "status": "pass", "note": "86 components, CycloneDX." },
+    { "id": "ANNEX-I-II-SCAN", "requirement": "Apply regular vulnerability scanning (Annex I Part II).", "status": "pass", "note": "Scan ran." },
+    { "id": "ANNEX-I-I-NO-KNOWN-EXPLOITABLE", "requirement": "Ship without known exploitable vulnerabilities; no Critical at release (Annex I Part I).", "status": "pass", "note": "No critical findings." },
+    { "id": "ANNEX-I-II-REMEDIATE", "requirement": "Remediate vulnerabilities without undue delay; track High and above (Annex I Part II).", "status": "pass", "note": "No high findings." },
+    { "id": "ANNEX-I-II-1-PRODUCT-IDENTITY", "requirement": "Declare the product as the SBOM top-level component (Annex I Part II).", "status": "pass", "note": "Product declared." },
+    { "id": "ANNEX-I-II-1-SBOM-PROVENANCE", "requirement": "Record when and by which tool the SBOM was generated (Annex I Part II).", "status": "pass", "note": "Timestamp + tool present." },
+    { "id": "ANNEX-I-II-1-COMPONENT-IDENTIFIERS", "requirement": "Give every SBOM component a purl/CPE and a version (Annex I Part II).", "status": "pass", "note": "All components identified." },
+    { "id": "ANNEX-I-II-1-COMPONENT-LICENSES", "requirement": "Record component license/SPDX data (SBOM-quality signal).", "status": "pass", "note": "Most components licensed." },
+    { "id": "ANNEX-I-I-2A-NO-KNOWN-EXPLOITED-KEV", "requirement": "Ship with no known-exploited (CISA KEV) vulnerabilities (Annex I Part I).", "status": "warn", "note": "DB carries no KEV enrichment." },
+    { "id": "ANNEX-I-I-2A-NO-UNFIXABLE-CRITICAL", "requirement": "Document a mitigation for unfixable Critical/High findings (Annex I).", "status": "pass", "note": "No unfixable Critical/High." },
+    { "id": "ANNEX-I-II-2-FIX-AVAILABILITY", "requirement": "Apply available security updates for High+ findings (Annex I Part II).", "status": "pass", "note": "No unapplied High+ fixes." },
+    { "id": "ANNEX-I-II-3-SCAN-FRESHNESS", "requirement": "Scan against a recently-updated vulnerability database (Annex I Part II).", "status": "pass", "note": "DB built 1d ago." },
+    { "id": "ANNEX-I-II-5-CVD-POLICY", "requirement": "Publish a coordinated-vulnerability-disclosure policy / security contact (Annex I Part II 5-6; Article 13).", "status": "pass", "note": "SECURITY.md with contact." },
+    { "id": "ANNEX-I-II-6-SECURITY-TXT", "requirement": "Provide an RFC 9116 security.txt security contact (Annex I Part II point 6).", "status": "pass", "note": "security.txt present." }
+  ]
+}

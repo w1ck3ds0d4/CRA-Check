@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-06-09T10:15:00Z",
+  "tool": "cra-check (CRADesk Kit)",
+  "disclaimer": "SAMPLE - synthetic evidence for the State of CRA Readiness scaffold. Not a real scan.",
+  "sbom": { "present": false, "format": null, "componentCount": 0, "hasMetadataComponent": false },
+  "vulnerabilities": { "counts": { "critical": 2, "high": 3, "medium": 6, "low": 9, "negligible": 0, "unknown": 2 }, "scanned": true,
+    "findings": [
+      { "id": "CVE-2024-1100", "severity": "critical", "package": "openssl", "version": "1.0.2", "fixedIn": [] },
+      { "id": "CVE-2024-1200", "severity": "critical", "package": "zlib", "version": "1.2.8", "fixedIn": ["1.2.13"] },
+      { "id": "CVE-2024-1300", "severity": "high", "package": "expat", "version": "2.2.0", "fixedIn": ["2.2.10"] }
+    ] },
+  "craChecks": [
+    { "id": "ANNEX-I-II-SBOM", "requirement": "Maintain a machine-readable SBOM of components (Annex I Part II).", "status": "fail", "note": "No SBOM produced." },
+    { "id": "ANNEX-I-II-SCAN", "requirement": "Apply regular vulnerability scanning (Annex I Part II).", "status": "pass", "note": "Scan ran." },
+    { "id": "ANNEX-I-I-NO-KNOWN-EXPLOITABLE", "requirement": "Ship without known exploitable vulnerabilities; no Critical at release (Annex I Part I).", "status": "fail", "note": "2 critical findings." },
+    { "id": "ANNEX-I-II-REMEDIATE", "requirement": "Remediate vulnerabilities without undue delay; track High and above (Annex I Part II).", "status": "warn", "note": "3 high to triage." },
+    { "id": "ANNEX-I-II-1-PRODUCT-IDENTITY", "requirement": "Declare the product as the SBOM top-level component (Annex I Part II).", "status": "warn", "note": "No SBOM; cannot check." },
+    { "id": "ANNEX-I-II-1-SBOM-PROVENANCE", "requirement": "Record when and by which tool the SBOM was generated (Annex I Part II).", "status": "warn", "note": "No SBOM; cannot check." },
+    { "id": "ANNEX-I-II-1-COMPONENT-IDENTIFIERS", "requirement": "Give every SBOM component a purl/CPE and a version (Annex I Part II).", "status": "warn", "note": "No SBOM; cannot check." },
+    { "id": "ANNEX-I-II-1-COMPONENT-LICENSES", "requirement": "Record component license/SPDX data (SBOM-quality signal).", "status": "warn", "note": "No SBOM; cannot check." },
+    { "id": "ANNEX-I-I-2A-NO-KNOWN-EXPLOITED-KEV", "requirement": "Ship with no known-exploited (CISA KEV) vulnerabilities (Annex I Part I).", "status": "warn", "note": "DB carries no KEV enrichment." },
+    { "id": "ANNEX-I-I-2A-NO-UNFIXABLE-CRITICAL", "requirement": "Document a mitigation for unfixable Critical/High findings (Annex I).", "status": "fail", "note": "1 Critical (openssl) has no available fix." },
+    { "id": "ANNEX-I-II-2-FIX-AVAILABILITY", "requirement": "Apply available security updates for High+ findings (Annex I Part II).", "status": "warn", "note": "2 High+ with an available fix still present." },
+    { "id": "ANNEX-I-II-3-SCAN-FRESHNESS", "requirement": "Scan against a recently-updated vulnerability database (Annex I Part II).", "status": "pass", "note": "DB built 3d ago." },
+    { "id": "ANNEX-I-II-5-CVD-POLICY", "requirement": "Publish a coordinated-vulnerability-disclosure policy / security contact (Annex I Part II 5-6; Article 13).", "status": "fail", "note": "No SECURITY.md / security.txt found." },
+    { "id": "ANNEX-I-II-6-SECURITY-TXT", "requirement": "Provide an RFC 9116 security.txt security contact (Annex I Part II point 6).", "status": "warn", "note": "No security.txt found." }
+  ]
+}

@@ -64,6 +64,10 @@ Hard requirements `fail` (missing SBOM, a Critical at release, a known-exploited
 | `cra-evidence.json` | Machine-readable CRA gap checks + vulnerability counts |
 | `cra-report.md` | Readable summary, also rendered in the GitHub job summary |
 
+### State of CRA Readiness (survey scaffold)
+
+[`state-of-cra/`](state-of-cra/) aggregates many `cra-evidence.json` files into one ecosystem readiness report - the share of projects shipping with an SBOM, with unresolved Critical findings, with a disclosure policy, and a per-check pass rate. Run it against the bundled synthetic samples with `python state-of-cra/aggregate.py`; see [`state-of-cra/README.md`](state-of-cra/README.md) to produce the real survey.
+
 ---
 
 ## Tech Stack

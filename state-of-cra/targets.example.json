@@ -1,0 +1,14 @@
+{
+  "description": "Target list for the State of CRA Readiness survey. Replace these illustrative entries with your own curated set of PUBLIC repositories, then run cra-check across them (see README). This file makes no claims about any project; it is only a list of repositories to scan.",
+  "selection": [
+    "Pick a coherent population you can defend - e.g. the most-depended-on OSS in one ecosystem, EU-origin open-source products, or a sector (IoT, fintech SDKs).",
+    "Aim for 100-300 repositories so the percentages are meaningful; start smaller to validate the pipeline.",
+    "Only scan public repositories. The report aggregates - it does not name or grade any single project.",
+    "Record the population definition and the scan date in the report so the methodology is reproducible."
+  ],
+  "targets": [
+    { "name": "example-web-framework", "repo": "https://github.com/owner/example-web-framework", "note": "illustrative placeholder - replace with a real public repo" },
+    { "name": "example-iot-runtime", "repo": "https://github.com/owner/example-iot-runtime", "note": "illustrative placeholder - replace with a real public repo" },
+    { "name": "example-payments-sdk", "repo": "https://github.com/owner/example-payments-sdk", "note": "illustrative placeholder - replace with a real public repo" }
+  ]
+}
