@@ -13,3 +13,16 @@ grype.json
 
 # ...but keep the bundled State of CRA Readiness scaffold samples
 !state-of-cra/samples/**/cra-evidence.json
+
+# Environment
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
