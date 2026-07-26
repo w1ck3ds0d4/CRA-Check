@@ -78,7 +78,7 @@ Hard requirements `fail` (missing SBOM, a Critical at release, a known-exploited
 | SBOM | Syft (CycloneDX JSON) |
 | Vulnerability scan | Grype |
 | Report generator | Python 3 (stdlib only, no dependencies) - `cra_report.py` |
-| Tests | pytest (21 tests) + CI on every push |
+| Tests | pytest (26 tests) + CI on every push |
 
 ---
 
