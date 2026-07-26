@@ -109,4 +109,6 @@ The dossier generation layer (Annex VII technical documentation, Article 14 inci
 
 ## License
 
-Licensed under the [Apache License, Version 2.0](LICENSE).
+This project is licensed under:
+
+- [Apache 2.0](LICENSE) - free for any use, commercial or otherwise. See the license for full terms.
