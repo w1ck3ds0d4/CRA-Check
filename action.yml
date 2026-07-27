@@ -1,6 +1,6 @@
 name: 'cra-check'
 description: 'CRA readiness check: generate a CycloneDX SBOM, scan for vulnerabilities, and emit a CRA evidence artifact + report on every build.'
-author: 'Wicked Kittens'
+author: 'WickIT Lab'
 branding:
   icon: 'shield'
   color: 'purple'
