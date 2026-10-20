@@ -22,6 +22,9 @@ SEVERITIES = ["critical", "high", "medium", "low", "negligible", "unknown"]
 
 
 def load_json(path):
+    """Read and parse a JSON file, returning None for a missing, empty,
+    unreadable or malformed file so callers can treat absent evidence as a
+    neutral result rather than catching exceptions."""
     if not path or not os.path.exists(path):
         return None
     try:
@@ -90,7 +93,7 @@ def _resolve_ci(base, relpath):
             for entry in os.listdir(cur):
                 if entry.lower() == seg.lower():
                     match = entry
-                    break
+                    break  # first case-insensitive match wins per segment
         except OSError:
             return None
         if match is None:
