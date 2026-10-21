@@ -8,11 +8,11 @@ the last blocker before flipping to maintain: the failed pip Dependabot update f
 GitHub Marketplace listing confirmed or published. After that this repo drops to maintain, no more
 feature threads unless a specific check gap is found.
 
-> How this file is used: Claude Project threads build the first unticked item under **Now**, one item per branch and pull request, and tick it in that same PR as `- [x] ... (#PR)`. Daniel owns the order and the lists; threads never add to Now, Next or Later themselves, they propose under **Ideas**.
+> How this file is used: Claude Project threads build the first unticked item under **Now**, one item per branch and pull request, and tick it in that same PR as `- [x] ... (#PR)`. The maintainer owns the order and the lists; threads never add to Now, Next or Later themselves, they propose under **Ideas**.
 
 ## Now (path to v1.0.0)
 - [ ] **Fix the failed pip Dependabot update**: the `pip in /.` Dependabot update run failed (the Action itself is fine); resolve the update and get it green. Done when: `gh run list -R w1ck3ds0d4/CRA-Check` shows no red pip Dependabot run and the current one merges or closes clean.
-- [ ] **Confirm or publish the GitHub Marketplace listing (Daniel)**: `action.yml` already carries Marketplace branding (icon, color); confirm the listing exists under the Security category, or publish it per RELEASING.md step 4. Done when: `w1ck3ds0d4/CRA-Check` is visible on the GitHub Marketplace.
+- [ ] **Confirm or publish the GitHub Marketplace listing (the maintainer)**: `action.yml` already carries Marketplace branding (icon, color); confirm the listing exists under the Security category, or publish it per RELEASING.md step 4. Done when: `w1ck3ds0d4/CRA-Check` is visible on the GitHub Marketplace.
 - [x] **Tag and release v1.0.0**: done when: the tag and GitHub release for the tag exist. Done when: `gh release list -R w1ck3ds0d4/CRA-Check` shows `v1.0.0` published. (already true as of 2026-07-27)
 
 ## Next

@@ -1,6 +1,6 @@
 ---
 name: cra-check-release
-description: Cut a release of CRA-Check, the GitHub Action. Use when Daniel says "release CRA-Check", "cut a CRA-Check version", or "publish CRA-Check" - walks the tag-and-move-v1 sequence from RELEASING.md and hands off the Marketplace publish step he does himself.
+description: Cut a release of CRA-Check, the GitHub Action. Use when the maintainer says "release CRA-Check", "cut a CRA-Check version", or "publish CRA-Check" - walks the tag-and-move-v1 sequence from RELEASING.md and hands off the Marketplace publish step he does himself.
 ---
 
 # CRA-Check release
@@ -20,7 +20,7 @@ Do not tag on top of a red `main`.
 
 ## 2. Pick the version
 
-Ask Daniel for the version if it is not obvious from the change (semantic: patch for a
+Ask the maintainer for the version if it is not obvious from the change (semantic: patch for a
 bugfix, minor for a new check or input, major for a breaking change to `action.yml`'s
 inputs or outputs).
 
@@ -39,7 +39,7 @@ here and expected by RELEASING.md, not a mistake to avoid.
 
 ## 4. Hand off the Marketplace step
 
-Tell Daniel plainly that the rest is a manual GitHub-UI step tied to his account and
+Tell the maintainer plainly that the rest is a manual GitHub-UI step tied to his account and
 cannot be automated from here:
 
 1. On GitHub: **Releases -> Draft a new release**, from the `v1.0.0` tag.
@@ -61,7 +61,7 @@ cannot be automated from here:
   keeps running the old code silently. Always force-push `v1` after a release.
 - Skipping the Marketplace tick-box still creates a valid tag and a working action for
   anyone pinning by SHA or tag, but it will not show up in Marketplace search or get the
-  category badge. If Daniel only wants a code release (no Marketplace listing this time),
+  category badge. If the maintainer only wants a code release (no Marketplace listing this time),
   say so and skip step 4 rather than doing it halfway.
 - This is a GitHub Action repo, not a library: there is no build or publish step here for
   Claude to run. The tag itself is the artifact.

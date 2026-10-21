@@ -32,7 +32,7 @@ Syft/Grype and shells out to `cra_report.py` (Python 3 stdlib only, no dependenc
 
 - Commit format: `(type) lowercase summary` - `feat`, `fix`, `docs`, `chore`, `test`. No trailing period.
 - ASCII hyphens only, no em dashes or en dashes, anywhere.
-- One feature branch, one pull request; Daniel reviews and merges.
+- One feature branch, one pull request; the maintainer reviews and merges.
 - Scanner versions in `action.yml` are pinned deliberately (a compliance-evidence tool must not
   install scanners from a moving branch); bump them explicitly, never track `latest`.
 - This repo is public: keep README claims and `cra_report.py`'s actual checks in sync.
