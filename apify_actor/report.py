@@ -37,7 +37,8 @@ def write_repo_stand_in(root, security_contact, texts):
 
     Supplied documents are written as given. A declared contact with no policy
     document becomes a one-line SECURITY.md so the disclosure-policy check can
-    see the contact; it is reported as declared, not as repository evidence.
+    see the contact; build_result then caps that check at warn and marks it
+    "declared, not verified", because a bare contact is not repository evidence.
     """
     if "securityTxt" in texts:
         wk = os.path.join(root, ".well-known")
@@ -47,9 +48,18 @@ def write_repo_stand_in(root, security_contact, texts):
     if "securityPolicy" in texts:
         with open(os.path.join(root, "SECURITY.md"), "w", encoding="utf-8") as f:
             f.write(texts["securityPolicy"])
-    elif security_contact:
+    elif security_contact and "securityTxt" not in texts:
         with open(os.path.join(root, "SECURITY.md"), "w", encoding="utf-8") as f:
             f.write(f"# Security policy\n\nContact: {security_contact}\n")
+
+
+def _mark_declared(check):
+    """A CVD policy check satisfied only by the declared-contact stand-in is not a plain pass."""
+    if check["id"] == "ANNEX-I-II-5-CVD-POLICY" and check["status"] == "pass":
+        return {**check, "status": "warn",
+                "note": "Declared, not verified: only a security contact was declared in the run input. "
+                        "No SECURITY.md or security.txt was supplied, so no policy document was checked."}
+    return check
 
 
 def product_fact_checks(inp, sbom, today):
@@ -125,6 +135,8 @@ def build_result(inp, sbom, sbom_format, grype, texts, now=None):
         write_repo_stand_in(root, inp.security_contact, texts)
         checks = cra_report.cra_checks(sbom, grype, sbom_present, fmt, component_count, counts,
                                        scanned, repo_dir=root, generated_at=generated_at)
+    if (inp.security_contact and "securityPolicy" not in texts and "securityTxt" not in texts):
+        checks = [_mark_declared(c) for c in checks]
 
     evidence = cra_report.build_evidence(generated_at, sbom_present, fmt, component_count,
                                          has_meta, counts, scanned, findings, checks)

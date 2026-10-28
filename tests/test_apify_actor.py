@@ -355,11 +355,29 @@ def test_spdx_input_produces_a_report():
     assert statuses["ANNEX-I-II-1-COMPONENT-LICENSES"] == "pass"
 
 
-def test_declared_contact_satisfies_cvd_check_but_not_security_txt():
-    _, (item, _, _) = build(good_input(securityContact="security@example.com"))
+def test_declared_contact_alone_is_not_a_plain_cvd_pass():
+    _, (item, evidence, md) = build(good_input(securityContact="security@example.com"))
+    statuses = {c["id"]: c["status"] for c in item["craChecks"]}
+    assert statuses["ANNEX-I-II-5-CVD-POLICY"] == "warn"
+    cvd = next(c for c in item["craChecks"] if c["id"] == "ANNEX-I-II-5-CVD-POLICY")
+    assert "declared, not verified" in cvd["note"].lower()
+    assert evidence["craChecks"] == item["craChecks"]
+    assert statuses["ANNEX-I-II-6-SECURITY-TXT"] == "warn"
+
+
+def test_supplied_policy_with_contact_still_passes_cvd():
+    _, (item, _, _) = build(good_input(securityContact="security@example.com"),
+                            texts={"securityPolicy": "# Policy\nReport to security@example.com\n"})
     statuses = {c["id"]: c["status"] for c in item["craChecks"]}
     assert statuses["ANNEX-I-II-5-CVD-POLICY"] == "pass"
-    assert statuses["ANNEX-I-II-6-SECURITY-TXT"] == "warn"
+
+
+def test_declared_contact_does_not_override_supplied_security_txt():
+    txt = "Contact: mailto:security@example.com\nExpires: 2099-01-01T00:00:00Z\n"
+    _, (item, _, _) = build(good_input(securityContact="other@example.com"), texts={"securityTxt": txt})
+    statuses = {c["id"]: c["status"] for c in item["craChecks"]}
+    assert statuses["ANNEX-I-II-5-CVD-POLICY"] == "pass"
+    assert statuses["ANNEX-I-II-6-SECURITY-TXT"] == "pass"
 
 
 def test_supplied_security_txt_is_checked_by_the_engine():
