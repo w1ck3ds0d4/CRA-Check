@@ -1,0 +1,42 @@
+{
+  "actorSpecification": 1,
+  "name": "cra-gap-check",
+  "title": "EU CRA gap check from an SBOM",
+  "description": "Turns a CycloneDX or SPDX SBOM, an optional Grype scan and a few product facts into a 14-check EU Cyber Resilience Act evidence report.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "dockerfile": "./Dockerfile",
+  "input": "./input_schema.json",
+  "readme": "./README.md",
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024,
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "CRA gap report",
+      "description": "One item per run: every gap check and the vulnerability counts.",
+      "views": {
+        "overview": {
+          "title": "Gap checks",
+          "description": "Summary and every gap check of the run.",
+          "transformation": {
+            "fields": ["product.name", "product.version", "generatedAt", "summary", "vulnerabilities.counts", "craChecks", "reportUrl", "evidenceUrl"]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "product.name": {"label": "Product", "format": "text"},
+              "product.version": {"label": "Version", "format": "text"},
+              "generatedAt": {"label": "Generated at", "format": "date"},
+              "summary": {"label": "Check totals", "format": "object"},
+              "vulnerabilities.counts": {"label": "Vulnerabilities by severity", "format": "object"},
+              "craChecks": {"label": "Gap checks", "format": "array"},
+              "reportUrl": {"label": "Report (cra-report.md)", "format": "link"},
+              "evidenceUrl": {"label": "Evidence (cra-evidence.json)", "format": "link"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

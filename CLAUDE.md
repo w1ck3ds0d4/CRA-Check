@@ -8,7 +8,7 @@ SBOM (Syft), a vulnerability scan (Grype), and a `cra-evidence.json` + `cra-repo
 
 ```bash
 pip install -r tests/requirements.txt   # if present; otherwise pytest is the only test dependency
-pytest                                    # 26 tests over cra_report.py and state-of-cra/
+pytest                                    # 102 tests: cra_report.py, state-of-cra/ and apify_actor/ (Apify SDK mocked)
 python cra_report.py --sbom cra-sbom.json --grype grype.json --repo-dir . \
   --out-json cra-evidence.json --out-md cra-report.md
 python state-of-cra/aggregate.py          # ecosystem readiness survey over bundled samples
@@ -23,7 +23,10 @@ Syft/Grype and shells out to `cra_report.py` (Python 3 stdlib only, no dependenc
 | --- | --- |
 | `action.yml` | The composite Action: installs Syft/Grype, runs the scan, generates the report |
 | `cra_report.py` | Dependency-free Python 3 report generator: the 14 CRA gap checks |
-| `tests/` | pytest suite (26 tests) over `cra_report.py` and `state-of-cra/aggregate.py` |
+| `tests/` | pytest suite (102 tests) over `cra_report.py`, `state-of-cra/aggregate.py` and `apify_actor/` |
+| `apify_actor/` | Apify Actor wrapper: validates input, fetches https URLs, calls `cra_report`, charges one event per report |
+| `.actor/` | Apify packaging: `actor.json`, `input_schema.json`, `Dockerfile`, Store `README.md` |
+| `docs/apify-pricing.md` | How to measure compute cost per run and set the event price |
 | `state-of-cra/` | Survey scaffold that aggregates many `cra-evidence.json` files into one ecosystem report |
 | `example-workflow.yml` | Example consumer CI workflow |
 | `RELEASING.md` | The tag-and-Marketplace release steps; see the `cra-check-release` skill |
