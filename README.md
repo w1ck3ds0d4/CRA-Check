@@ -56,7 +56,7 @@ python cra_report.py --sbom cra-sbom.json --grype grype.json --repo-dir . \
 | SBOM | Syft (CycloneDX JSON) |
 | Vulnerability scan | Grype |
 | Report generator | Python 3 (stdlib only, no dependencies) - `cra_report.py` |
-| Tests | pytest (26 tests) + CI on every push |
+| Tests | pytest (102 tests: 26 for the engine and survey, 76 for the Apify Actor) + CI on every push |
 
 ## Features (built)
 
@@ -84,6 +84,10 @@ Hard requirements `fail` (missing SBOM, a Critical at release, a known-exploited
 ### State of CRA Readiness (survey scaffold)
 
 [`state-of-cra/`](state-of-cra/) aggregates many `cra-evidence.json` files into one ecosystem readiness report - the share of projects shipping with an SBOM, with unresolved Critical findings, with a disclosure policy, and a per-check pass rate. Run it against the bundled synthetic samples with `python state-of-cra/aggregate.py`; see [`state-of-cra/README.md`](state-of-cra/README.md) to produce the real survey.
+
+### Run it on Apify (coming soon)
+
+An Apify Actor wrapping this engine is in the repository (`apify_actor/`, `.actor/`) and is not published yet. Once it is, it will take an SBOM (CycloneDX or SPDX) by URL or pasted JSON, an optional Grype result and a few product facts, and return the same 14 checks as a dataset item plus `cra-evidence.json` and `cra-report.md`, billed per report. Until a Store link is added here, treat it as not available. Pricing notes for the maintainer are in [`docs/apify-pricing.md`](docs/apify-pricing.md).
 
 ## What's not yet built
 

@@ -1,0 +1,101 @@
+{
+  "title": "CRA gap check input",
+  "description": "Supply an SBOM and the facts about your product. Optionally add a Grype scan result.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "productName": {
+      "title": "Product name",
+      "type": "string",
+      "description": "The product the SBOM describes. Compared with the SBOM's top-level component.",
+      "editor": "textfield",
+      "maxLength": 200,
+      "prefill": "my-product",
+      "sectionCaption": "Product facts",
+      "sectionDescription": "Declared by you and not verified. They appear in the report as declared."
+    },
+    "productVersion": {
+      "title": "Product version",
+      "type": "string",
+      "description": "Version of the product the SBOM describes.",
+      "editor": "textfield",
+      "maxLength": 100,
+      "nullable": true
+    },
+    "vendor": {
+      "title": "Manufacturer",
+      "type": "string",
+      "description": "Name of the manufacturer or vendor.",
+      "editor": "textfield",
+      "maxLength": 200,
+      "nullable": true
+    },
+    "supportPeriodEnd": {
+      "title": "Support period end",
+      "type": "string",
+      "description": "Last day you commit to ship security updates, as YYYY-MM-DD.",
+      "editor": "textfield",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "nullable": true
+    },
+    "securityContact": {
+      "title": "Security contact",
+      "type": "string",
+      "description": "An email address or an https URL where people report vulnerabilities.",
+      "editor": "textfield",
+      "maxLength": 300,
+      "nullable": true
+    },
+    "securityTxtUrl": {
+      "title": "security.txt URL",
+      "type": "string",
+      "description": "Optional https URL of your RFC 9116 security.txt. It is fetched and checked for a Contact field and an Expires date.",
+      "editor": "textfield",
+      "maxLength": 2048,
+      "nullable": true
+    },
+    "securityPolicyUrl": {
+      "title": "Security policy URL",
+      "type": "string",
+      "description": "Optional https URL of your SECURITY.md (raw text). It is fetched and checked for a reporting contact.",
+      "editor": "textfield",
+      "maxLength": 2048,
+      "nullable": true
+    },
+    "sbomUrl": {
+      "title": "SBOM URL",
+      "type": "string",
+      "description": "https URL of a CycloneDX JSON or SPDX 2.x JSON SBOM (max 15 MiB). Use this or the pasted SBOM below, not both.",
+      "editor": "textfield",
+      "maxLength": 2048,
+      "nullable": true,
+      "sectionCaption": "SBOM",
+      "sectionDescription": "Exactly one of the URL or the pasted JSON."
+    },
+    "sbomJson": {
+      "title": "SBOM (pasted JSON)",
+      "type": "object",
+      "description": "A CycloneDX or SPDX 2.x SBOM pasted as JSON.",
+      "editor": "json",
+      "nullable": true
+    },
+    "grypeUrl": {
+      "title": "Grype result URL",
+      "type": "string",
+      "description": "Optional https URL of the JSON output of grype -o json (max 15 MiB). Without a scan, the vulnerability checks report that no scan ran.",
+      "editor": "textfield",
+      "maxLength": 2048,
+      "nullable": true,
+      "sectionCaption": "Vulnerability scan (optional)",
+      "sectionDescription": "At most one of the URL or the pasted JSON."
+    },
+    "grypeJson": {
+      "title": "Grype result (pasted JSON)",
+      "type": "object",
+      "description": "The JSON output of grype -o json, pasted.",
+      "editor": "json",
+      "nullable": true
+    }
+  },
+  "required": ["productName"]
+}

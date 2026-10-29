@@ -477,6 +477,24 @@ def build_report_md(generated_at, sbom_present, fmt, component_count, counts, ch
     return "\n".join(lines)
 
 
+def build_evidence(generated_at, sbom_present, fmt, component_count, has_meta,
+                   counts, scanned, findings, checks):
+    """Assemble the cra-evidence.json document. Shared by the CLI and the Apify Actor."""
+    return {
+        "generatedAt": generated_at,
+        "tool": "cra-check (CRADesk Kit)",
+        "disclaimer": "Engineering evidence, not legal advice or a conformity guarantee.",
+        "sbom": {
+            "present": sbom_present,
+            "format": fmt,
+            "componentCount": component_count,
+            "hasMetadataComponent": has_meta,
+        },
+        "vulnerabilities": {"counts": counts, "scanned": scanned, "findings": findings},
+        "craChecks": checks,
+    }
+
+
 def main():
     ap = argparse.ArgumentParser(description="Generate a CRA evidence report from an SBOM + scan.")
     ap.add_argument("--sbom", required=True, help="CycloneDX SBOM JSON (from Syft)")
@@ -500,19 +518,8 @@ def main():
                         repo_dir=args.repo_dir, generated_at=generated_at,
                         db_max_age_days=args.db_max_age_days)
 
-    evidence = {
-        "generatedAt": generated_at,
-        "tool": "cra-check (CRADesk Kit)",
-        "disclaimer": "Engineering evidence, not legal advice or a conformity guarantee.",
-        "sbom": {
-            "present": sbom_present,
-            "format": fmt,
-            "componentCount": component_count,
-            "hasMetadataComponent": has_meta,
-        },
-        "vulnerabilities": {"counts": counts, "scanned": scanned, "findings": findings},
-        "craChecks": checks,
-    }
+    evidence = build_evidence(generated_at, sbom_present, fmt, component_count, has_meta,
+                              counts, scanned, findings, checks)
 
     with open(args.out_json, "w", encoding="utf-8") as f:
         json.dump(evidence, f, indent=2)

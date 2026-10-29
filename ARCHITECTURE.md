@@ -9,7 +9,8 @@ account, nothing leaves the CI runner.
 - SBOM: Syft (CycloneDX JSON)
 - Vulnerability scan: Grype
 - Report generator: Python 3, stdlib only, no dependencies (`cra_report.py`)
-- Tests: pytest (26 tests), run in CI on every push
+- Apify Actor: `apify_actor/` + `.actor/`, a second front end over the same `cra_report.py` (Apify SDK pinned in `apify_actor/requirements.txt`, used only inside the Actor image)
+- Tests: pytest (102 tests), run in CI on every push; the Apify SDK is mocked, so no account or network is needed
 
 ## Component breakdown
 
@@ -21,6 +22,12 @@ account, nothing leaves the CI runner.
   evidence (`SECURITY.md`, `security.txt`), and computes 14 CRA gap checks across four evidence
   sources (vulnerabilities, SBOM quality, repository policy, process). Emits `cra-evidence.json`
   (machine-readable) and `cra-report.md` (human-readable, also written to the job summary).
+- `apify_actor/`: the pay-per-report front end. `inputs.py` validates the run input and loads the
+  SBOM, Grype and security documents; `fetch.py` is the https-only, size-capped, public-address-only
+  downloader; `spdx.py` maps SPDX 2.x onto the CycloneDX shape the engine reads; `report.py` calls
+  `cra_report` (checks, evidence, Markdown) and appends the declared product facts and the "does not
+  prove" section; `main.py` stores `cra-evidence.json` and `cra-report.md`, pushes one dataset item
+  and charges the `cra-gap-report` event once. No check logic is duplicated.
 - `state-of-cra/`: a separate aggregation script (`aggregate.py`) that reads many
   `cra-evidence.json` files and produces an ecosystem-level readiness survey; independent of the
   per-repo Action flow.
