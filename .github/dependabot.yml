@@ -13,7 +13,7 @@ updates:
         update-types: [minor, major]
 
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "/apify_actor"
     schedule:
       interval: monthly
     commit-message:
@@ -23,3 +23,10 @@ updates:
         update-types: [patch]
       pip-updates:
         update-types: [minor, major]
+
+  - package-ecosystem: "docker"
+    directory: "/.actor"
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: chore
