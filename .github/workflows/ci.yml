@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: pip install pytest
+      - run: pip install pytest cryptography==49.0.0
 
       - name: Lint the report generator compiles
         run: python -m py_compile cra_report.py

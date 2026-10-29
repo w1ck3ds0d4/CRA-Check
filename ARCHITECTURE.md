@@ -10,7 +10,8 @@ account, nothing leaves the CI runner.
 - Vulnerability scan: Grype
 - Report generator: Python 3, stdlib only, no dependencies (`cra_report.py`)
 - Apify Actor: `apify_actor/` + `.actor/`, a second front end over the same `cra_report.py` (Apify SDK pinned in `apify_actor/requirements.txt`, used only inside the Actor image)
-- Tests: pytest (102 tests), run in CI on every push; the Apify SDK is mocked, so no account or network is needed
+- Sealing and verification: `cryptography` (ECDSA P-256), pinned in `apify_actor/requirements.txt`, used only by the Actor and its verify command
+- Tests: pytest, run in CI on every pull request; the Apify SDK is mocked, so no account or network is needed
 
 ## Component breakdown
 
@@ -27,7 +28,10 @@ account, nothing leaves the CI runner.
   downloader; `spdx.py` maps SPDX 2.x onto the CycloneDX shape the engine reads; `report.py` calls
   `cra_report` (checks, evidence, Markdown) and appends the declared product facts and the "does not
   prove" section; `main.py` stores `cra-evidence.json` and `cra-report.md`, pushes one dataset item
-  and charges the `cra-gap-report` event once. No check logic is duplicated.
+  and charges the `cra-gap-report` event once. With the `sealed` input, `seal.py` also writes
+  `cra-evidence-sealed.json` (a ProofLog-format signed hash chain over the inputs, the 14 checks and the hashes
+  of the two plain records) and the run charges `cra-sealed-report` instead; `verify.py` is the matching
+  `python -m apify_actor.verify` command. No check logic is duplicated.
 - `state-of-cra/`: a separate aggregation script (`aggregate.py`) that reads many
   `cra-evidence.json` files and produces an ecosystem-level readiness survey; independent of the
   per-repo Action flow.

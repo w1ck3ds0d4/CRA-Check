@@ -37,6 +37,7 @@ class ActorInput:
     sbom_json: dict = None
     grype_url: str = ""
     grype_json: dict = None
+    sealed: bool = False
 
 
 def _text(raw, key, errors, max_len, required=False):
@@ -123,6 +124,11 @@ def validate_input(raw):
     inp.sbom_json = _doc(raw, "sbomJson", errors)
     inp.grype_url = _url(raw, "grypeUrl", errors)
     inp.grype_json = _doc(raw, "grypeJson", errors)
+
+    sealed = raw.get("sealed")
+    if sealed is not None and not isinstance(sealed, bool):
+        errors.append("sealed must be true or false.")
+    inp.sealed = sealed is True
 
     if bool(raw.get("sbomUrl")) == (raw.get("sbomJson") not in (None, "")):
         errors.append("Provide exactly one of sbomUrl or sbomJson.")

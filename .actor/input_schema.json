@@ -1,13 +1,13 @@
 {
   "title": "CRA gap check input",
-  "description": "Supply an SBOM and the facts about your product. Optionally add a Grype scan result.",
+  "description": "Give an SBOM and a few facts about the product. The Actor returns a 14-check EU Cyber Resilience Act gap report. Add a Grype scan to get the vulnerability checks; set sealed to get a signed copy that can be verified later.",
   "type": "object",
   "schemaVersion": 1,
   "properties": {
     "productName": {
       "title": "Product name",
       "type": "string",
-      "description": "The product the SBOM describes. Compared with the SBOM's top-level component.",
+      "description": "Name of the product the SBOM describes, for example my-app. Required. It is compared with the SBOM's top-level component and printed in the report as declared.",
       "editor": "textfield",
       "maxLength": 200,
       "prefill": "my-product",
@@ -17,7 +17,7 @@
     "productVersion": {
       "title": "Product version",
       "type": "string",
-      "description": "Version of the product the SBOM describes.",
+      "description": "Version of the product the SBOM describes, for example 1.2.0. Optional. Compared with the SBOM's top-level component version.",
       "editor": "textfield",
       "maxLength": 100,
       "nullable": true
@@ -25,7 +25,7 @@
     "vendor": {
       "title": "Manufacturer",
       "type": "string",
-      "description": "Name of the manufacturer or vendor.",
+      "description": "Name of the manufacturer, for example Example Ltd. Optional. Printed as declared and not verified.",
       "editor": "textfield",
       "maxLength": 200,
       "nullable": true
@@ -33,7 +33,7 @@
     "supportPeriodEnd": {
       "title": "Support period end",
       "type": "string",
-      "description": "Last day you commit to ship security updates, as YYYY-MM-DD.",
+      "description": "Last day you commit to ship security updates, written YYYY-MM-DD, for example 2031-06-30. Optional. A date in the past gives a warning.",
       "editor": "textfield",
       "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
       "nullable": true
@@ -41,7 +41,7 @@
     "securityContact": {
       "title": "Security contact",
       "type": "string",
-      "description": "An email address or an https URL where people report vulnerabilities.",
+      "description": "Where people report vulnerabilities: an email address or an https URL. Optional. Without a security.txt or SECURITY.md URL this is only recorded as declared, so the disclosure check stays at warn.",
       "editor": "textfield",
       "maxLength": 300,
       "nullable": true
@@ -49,7 +49,7 @@
     "securityTxtUrl": {
       "title": "security.txt URL",
       "type": "string",
-      "description": "Optional https URL of your RFC 9116 security.txt. It is fetched and checked for a Contact field and an Expires date.",
+      "description": "https URL of the product's RFC 9116 security.txt. Optional. It is downloaded and checked for a Contact field and an Expires date. Public hosts only, no port, max 256 KiB.",
       "editor": "textfield",
       "maxLength": 2048,
       "nullable": true
@@ -57,7 +57,7 @@
     "securityPolicyUrl": {
       "title": "Security policy URL",
       "type": "string",
-      "description": "Optional https URL of your SECURITY.md (raw text). It is fetched and checked for a reporting contact.",
+      "description": "https URL of the product's SECURITY.md as raw text. Optional. It is downloaded and checked for a way to report a vulnerability. Public hosts only, no port, max 256 KiB.",
       "editor": "textfield",
       "maxLength": 2048,
       "nullable": true
@@ -65,7 +65,7 @@
     "sbomUrl": {
       "title": "SBOM URL",
       "type": "string",
-      "description": "https URL of a CycloneDX JSON or SPDX 2.x JSON SBOM (max 15 MiB). Use this or the pasted SBOM below, not both.",
+      "description": "https URL of the SBOM as CycloneDX JSON or SPDX 2.x JSON, max 15 MiB. Give this or sbomJson, not both. Public hosts only, no port.",
       "editor": "textfield",
       "maxLength": 2048,
       "nullable": true,
@@ -75,14 +75,14 @@
     "sbomJson": {
       "title": "SBOM (pasted JSON)",
       "type": "object",
-      "description": "A CycloneDX or SPDX 2.x SBOM pasted as JSON.",
+      "description": "The SBOM itself as a JSON object (CycloneDX or SPDX 2.x), max 15 MiB. Give this or sbomUrl, not both.",
       "editor": "json",
       "nullable": true
     },
     "grypeUrl": {
       "title": "Grype result URL",
       "type": "string",
-      "description": "Optional https URL of the JSON output of grype -o json (max 15 MiB). Without a scan, the vulnerability checks report that no scan ran.",
+      "description": "https URL of a vulnerability scan: the JSON output of grype -o json, max 15 MiB. Optional. Without a scan, the vulnerability checks say that no scan ran. Give this or grypeJson, not both.",
       "editor": "textfield",
       "maxLength": 2048,
       "nullable": true,
@@ -92,10 +92,21 @@
     "grypeJson": {
       "title": "Grype result (pasted JSON)",
       "type": "object",
-      "description": "The JSON output of grype -o json, pasted.",
+      "description": "The output of grype -o json as a JSON object. Optional. Give this or grypeUrl, not both.",
       "editor": "json",
       "nullable": true
+    },
+    "sealed": {
+      "title": "Sealed report",
+      "type": "boolean",
+      "description": "Set to true to also receive cra-evidence-sealed.json, a signed copy of the report in ProofLog's evidence format. Anyone with the publisher's public key can later check that the report was not altered. The run is then billed as a sealed report instead of a plain one. Default false.",
+      "editor": "checkbox",
+      "default": false,
+      "sectionCaption": "Sealed report (optional)",
+      "sectionDescription": "Adds a signed file to the key-value store. See the Actor README for how to verify it."
     }
   },
-  "required": ["productName"]
+  "required": [
+    "productName"
+  ]
 }

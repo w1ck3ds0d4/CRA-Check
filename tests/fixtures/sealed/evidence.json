@@ -1,0 +1,154 @@
+{
+  "generatedAt": "2026-10-29T12:00:00Z",
+  "tool": "cra-check (CRADesk Kit)",
+  "disclaimer": "Engineering evidence, not legal advice or a conformity guarantee.",
+  "sbom": {
+    "present": true,
+    "format": "CycloneDX",
+    "componentCount": 2,
+    "hasMetadataComponent": true
+  },
+  "vulnerabilities": {
+    "counts": {
+      "critical": 1,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "negligible": 0,
+      "unknown": 0
+    },
+    "scanned": true,
+    "findings": [
+      {
+        "id": "CVE-2025-0001",
+        "severity": "critical",
+        "package": "libfoo",
+        "version": "1.0.0",
+        "fixedIn": [
+          "1.0.1"
+        ]
+      },
+      {
+        "id": "CVE-2025-0002",
+        "severity": "high",
+        "package": "libbar",
+        "version": "2.0.0",
+        "fixedIn": []
+      }
+    ]
+  },
+  "craChecks": [
+    {
+      "id": "ANNEX-I-II-SBOM",
+      "requirement": "Maintain a machine-readable SBOM of components (CRA Annex I, Part II).",
+      "status": "pass",
+      "note": "2 components, format CycloneDX."
+    },
+    {
+      "id": "ANNEX-I-II-SCAN",
+      "requirement": "Apply effective and regular security tests / vulnerability scanning.",
+      "status": "pass",
+      "note": "Vulnerability scan ran."
+    },
+    {
+      "id": "ANNEX-I-I-NO-KNOWN-EXPLOITABLE",
+      "requirement": "Ship without known exploitable vulnerabilities (no Critical at release).",
+      "status": "fail",
+      "note": "1 critical finding(s)."
+    },
+    {
+      "id": "ANNEX-I-II-REMEDIATE",
+      "requirement": "Remediate vulnerabilities without undue delay (track High and above).",
+      "status": "warn",
+      "note": "1 high finding(s) to triage."
+    },
+    {
+      "id": "ANNEX-I-II-1-PRODUCT-IDENTITY",
+      "requirement": "Declare the product as the SBOM's top-level component (CycloneDX metadata.component) for traceability (CRA Annex I Part II).",
+      "status": "pass",
+      "note": "SBOM declares the product as its top-level component (demo-app@1.0.0)."
+    },
+    {
+      "id": "ANNEX-I-II-1-SBOM-PROVENANCE",
+      "requirement": "Record when and by which tool the SBOM was generated (metadata.timestamp + metadata.tools) so it is dated and attributable (CRA Annex I Part II).",
+      "status": "warn",
+      "note": "SBOM is missing metadata.timestamp and/or metadata.tools; cannot evidence when/how it was generated."
+    },
+    {
+      "id": "ANNEX-I-II-1-COMPONENT-IDENTIFIERS",
+      "requirement": "Give every SBOM component a package identifier (purl/CPE) and a version so it can be matched to vulnerability data (CRA Annex I Part II).",
+      "status": "warn",
+      "note": "2 of 2 components lack a purl/CPE or version (2 missing an identifier, 0 missing a version)."
+    },
+    {
+      "id": "ANNEX-I-II-1-COMPONENT-LICENSES",
+      "requirement": "Record component license/SPDX data to enrich the SBOM evidence (SBOM-quality signal; the CRA does not mandate per-component licenses).",
+      "status": "warn",
+      "note": "Only 0/2 components carry license/SPDX data (0%). Advisory SBOM enrichment, not a CRA requirement."
+    },
+    {
+      "id": "ANNEX-I-I-2A-NO-KNOWN-EXPLOITED-KEV",
+      "requirement": "Ship with no components affected by known-exploited (CISA KEV) vulnerabilities (CRA Annex I Part I, no known exploitable vulnerabilities).",
+      "status": "warn",
+      "note": "Not evaluated: the Grype database in use carries no known-exploited (KEV) enrichment."
+    },
+    {
+      "id": "ANNEX-I-I-2A-NO-UNFIXABLE-CRITICAL",
+      "requirement": "Document a mitigation or risk decision for Critical/High findings that have no available upstream fix (CRA Annex I Part I/II).",
+      "status": "pass",
+      "note": "No unfixable Critical/High findings detected."
+    },
+    {
+      "id": "ANNEX-I-II-2-FIX-AVAILABILITY",
+      "requirement": "Apply available security updates: surface High+ findings that already have a fixed version (CRA Annex I Part II, remediate without undue delay).",
+      "status": "warn",
+      "note": "1 High+ finding(s) have an available fixed version still present; apply the security update."
+    },
+    {
+      "id": "ANNEX-I-II-3-SCAN-FRESHNESS",
+      "requirement": "Run vulnerability scans against a recently-updated database, evidencing regular testing (CRA Annex I Part II).",
+      "status": "warn",
+      "note": "Scan DB freshness unknown (descriptor.db.built absent or unparseable)."
+    },
+    {
+      "id": "ANNEX-I-II-5-CVD-POLICY",
+      "requirement": "Publish a coordinated-vulnerability-disclosure policy / security contact (SECURITY.md or security.txt) (CRA Annex I Part II points 5-6; Article 13).",
+      "status": "warn",
+      "note": "Declared, not verified: only a security contact was declared in the run input. No SECURITY.md or security.txt was supplied, so no policy document was checked."
+    },
+    {
+      "id": "ANNEX-I-II-6-SECURITY-TXT",
+      "requirement": "Provide a machine-discoverable security contact via an RFC 9116 security.txt (CRA Annex I Part II point 6).",
+      "status": "warn",
+      "note": "No security.txt at .well-known/security.txt or /security.txt; a SECURITY.md may still satisfy point (6)."
+    }
+  ],
+  "product": {
+    "name": "demo-app",
+    "version": "1.0.0",
+    "vendor": "Example Ltd",
+    "supportPeriodEnd": "2099-12-31",
+    "securityContact": "security@example.com",
+    "declaredByUser": true,
+    "factChecks": [
+      {
+        "id": "FACT-MANUFACTURER",
+        "status": "pass",
+        "requirement": "Name the manufacturer of the product.",
+        "note": "Manufacturer declared as Example Ltd."
+      },
+      {
+        "id": "FACT-SUPPORT-PERIOD",
+        "requirement": "Declare a support period end date (CRA Article 13(8) sets a minimum support period, normally five years from placing on the market).",
+        "status": "pass",
+        "note": "Support period end declared as 2099-12-31. Whether it meets the Article 13(8) minimum depends on the placing-on-market date, which this run does not know."
+      },
+      {
+        "id": "FACT-SBOM-MATCHES-PRODUCT",
+        "requirement": "The SBOM's top-level component should be the product you declared.",
+        "status": "pass",
+        "note": "The SBOM's top-level component matches the declared product."
+      }
+    ]
+  }
+}

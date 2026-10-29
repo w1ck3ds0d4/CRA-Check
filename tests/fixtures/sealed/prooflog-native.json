@@ -1,0 +1,62 @@
+{
+  "profile": {
+    "key": "cra",
+    "framework": "EU Cyber Resilience Act",
+    "reference": "Regulation (EU) 2024/2847 - Annex I Part II (vulnerability handling) and Article 13 (technical documentation)",
+    "obligation": "Manufacturers must handle vulnerabilities throughout the support period and keep records of the security-relevant processes that back the technical documentation.",
+    "mappings": [
+      {
+        "requirement": "Record how vulnerabilities are identified, triaged, and remediated",
+        "howProofLogHelps": "Each triage and remediation decision is an append-only, time-stamped, attributable record - the trail behind the Annex VII technical file."
+      },
+      {
+        "requirement": "Demonstrate the records were not altered after the fact",
+        "howProofLogHelps": "The hash chain detects any edit, reorder, insertion, or deletion; with signing, even a full rewrite by someone without the key is caught."
+      },
+      {
+        "requirement": "Evidence the timeline of incident handling and reporting (Article 14)",
+        "howProofLogHelps": "Every event carries a UTC timestamp bound into its hash, so the recorded 24h / 72h / 14-day sequence is tamper-evident: the timeline cannot be quietly rewritten after the fact."
+      }
+    ]
+  },
+  "signed": true,
+  "disclaimer": "ProofLog provides a tamper-evident, identity-bound record-keeping mechanism. This export documents the integrity of the recorded events; it does not by itself constitute or guarantee regulatory compliance, and it is not legal advice.",
+  "generatedAt": "2026-10-29T12:00:00+00:00",
+  "count": 3,
+  "head": "b8946d05c4dc5cfe0b90c02ea5793fbf30fbeb4e7e8b0acca68691aba7bf94d8",
+  "verification": {
+    "ok": true,
+    "verified": 3
+  },
+  "records": [
+    {
+      "seq": 1,
+      "at": "2026-10-29T12:00:00.1234567+00:00",
+      "actor": "alice",
+      "action": "payout.approve",
+      "resource": "payout/42",
+      "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "f9e93086998d61bc80394e60e0dac786cd7b377f1121f0d7eb4dd4d6ff6e221b",
+      "mac": "a48795a6a43dda8289856e174b197d5f5c8aba68f45ff299821bdf94faf836bc9da7b790372c275741fffe71efcf08ab7d81303dc66161590762b62e3981330a"
+    },
+    {
+      "seq": 2,
+      "at": "2026-10-29T12:00:00.2469134+00:00",
+      "actor": "bob",
+      "action": "payout.release",
+      "data": "{\u0022amt\u0022:100,\u0022note\u0022:\u0022caf\u00E9\u0022}",
+      "prevHash": "f9e93086998d61bc80394e60e0dac786cd7b377f1121f0d7eb4dd4d6ff6e221b",
+      "hash": "9771ea4254a7cda084f5cd894660c61ab200369af79416ae671eafa5ede3a4eb",
+      "mac": "2d253e0670d0379dae85680b032d6476afeac9481edde5071d326b1c42081411c66924aac0d11b3bd4cadde615b09ff44dfd06c887df72e7c39324c9be10a8ae"
+    },
+    {
+      "seq": 3,
+      "at": "2026-10-29T12:00:00.3703701+00:00",
+      "actor": "alice",
+      "action": "close",
+      "prevHash": "9771ea4254a7cda084f5cd894660c61ab200369af79416ae671eafa5ede3a4eb",
+      "hash": "b8946d05c4dc5cfe0b90c02ea5793fbf30fbeb4e7e8b0acca68691aba7bf94d8",
+      "mac": "23739a415c27b8044c21922035f7cec5215b79e0fcbfae40eed2f76b1e21e9bb4535b1f322accfb867d0118af80d067b3cee36992d4dbf253ecdce20f96ab7b7"
+    }
+  ]
+}

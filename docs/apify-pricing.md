@@ -1,6 +1,6 @@
 # Pricing the Apify Actor
 
-The Actor charges one pay-per-event event, `cra-gap-report`, once per successful run. This page explains how to measure what a run costs you and how to set the price from that. Nothing here is set yet: the price is entered on the maintainer's own Apify account when the Actor is published.
+The Actor charges one pay-per-event event per successful run: `cra-gap-report` for a plain report, or `cra-sealed-report` instead (never both) when the `sealed` input is on. This page explains how to measure what a run costs you and how to set the price from that. Nothing here is set yet: the price is entered on the maintainer's own Apify account when the Actor is published.
 
 ## Measure the compute cost per run
 
@@ -40,13 +40,14 @@ Worked example with made-up numbers, only to show the arithmetic: `U = 0.004`, `
 
 1. In the Apify Console open the Actor, Publication, Monetization, and choose pay-per-event.
 2. Add one event with the exact name `cra-gap-report`, a title such as "CRA gap report", a description such as "One 14-check gap report", and the price from the formula.
-3. Do not add other events. The code charges only `cra-gap-report`, once per successful run.
-4. Replace the `PRICE-PLACEHOLDER` text in `.actor/README.md` with the same price, and publish.
+3. Add a second event with the exact name `cra-sealed-report`, a title such as "Sealed CRA gap report" and a description such as "One 14-check gap report plus a signed copy that can be verified later". Price it above `cra-gap-report`. Do not add other events. The code charges only one of the two, once per successful run.
+4. Replace `PRICE-PLACEHOLDER` and `SEALED-PRICE-PLACEHOLDER` in `.actor/README.md` with the same prices.
+5. Before the first sealed run is offered, generate the signing key pair yourself, outside this repository (for example `openssl ecparam -name prime256v1 -genkey -noout | openssl pkcs8 -topk8 -nocrypt -out seal-key.pem`), set the private key as the secret environment variable `CRA_SEAL_PRIVATE_KEY` on the Actor in the Apify Console, publish the public key (`openssl ec -in seal-key.pem -pubout`) where users can find it, and replace `PUBLIC-KEY-PLACEHOLDER` in `.actor/README.md`. Never commit the private key. Without it, sealed runs fail before any charge. Then publish.
 
 ## What the code guarantees
 
-- One `Actor.charge("cra-gap-report")` call per run, made after the report and both key-value records are stored and the dataset item is pushed.
-- No charge for invalid input, an unreadable SBOM or scan, a failed download, or an unexpected error.
+- One `Actor.charge` call per run, for `cra-gap-report` (plain) or `cra-sealed-report` (sealed), made after the report and the key-value records (three for a sealed run) are stored and the dataset item is pushed.
+- No charge for invalid input, an unreadable SBOM or scan, a failed download, a sealed run without a usable signing key, or an unexpected error (including a sealing failure).
 - If the user's maximum total charge cannot pay for one report, the run stops before any work is done.
 - The charge call carries an idempotency key built from the run id, so a platform retry does not charge twice.
 

@@ -1,0 +1,214 @@
+{
+  "profile": {
+    "key": "cra",
+    "framework": "EU Cyber Resilience Act",
+    "reference": "Regulation (EU) 2024/2847 - Annex I Part II (vulnerability handling) and Article 13 (technical documentation)",
+    "obligation": "Manufacturers must handle vulnerabilities throughout the support period and keep records of the security-relevant processes that back the technical documentation.",
+    "mappings": [
+      {
+        "requirement": "Record how vulnerabilities are identified, triaged, and remediated",
+        "howProofLogHelps": "Each triage and remediation decision is an append-only, time-stamped, attributable record - the trail behind the Annex VII technical file."
+      },
+      {
+        "requirement": "Demonstrate the records were not altered after the fact",
+        "howProofLogHelps": "The hash chain detects any edit, reorder, insertion, or deletion; with signing, even a full rewrite by someone without the key is caught."
+      },
+      {
+        "requirement": "Evidence the timeline of incident handling and reporting (Article 14)",
+        "howProofLogHelps": "Every event carries a UTC timestamp bound into its hash, so the recorded 24h / 72h / 14-day sequence is tamper-evident: the timeline cannot be quietly rewritten after the fact."
+      }
+    ]
+  },
+  "signed": true,
+  "disclaimer": "ProofLog provides a tamper-evident, identity-bound record-keeping mechanism. This export documents the integrity of the recorded events; it does not by itself constitute or guarantee regulatory compliance, and it is not legal advice.",
+  "generatedAt": "2026-10-29T12:00:00.235456+00:00",
+  "count": 16,
+  "head": "af335baba9f9da8017e585dbe7f871dfb4b8607eab5c3197cb0b028d76ab377b",
+  "verification": {
+    "ok": true,
+    "verified": 16
+  },
+  "records": [
+    {
+      "seq": 1,
+      "at": "2026-10-29T12:00:00.123456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.inputs.recorded",
+      "resource": "product/demo-app",
+      "data": "{\"grype\":{\"sha256\":\"58f5f42397f5d27ebf3b2b29a0d41bdf0825ccba25f5b536961e2c8c5d9f0295\"},\"product\":{\"name\":\"demo-app\",\"securityContact\":\"security@example.com\",\"supportPeriodEnd\":\"2099-12-31\",\"vendor\":\"Example Ltd\",\"version\":\"1.0.0\"},\"sbom\":{\"format\":\"CycloneDX\",\"sha256\":\"93ee617aaf77e29cb598dd94b8317120e84ff262b210042ce84b665fa2fa7c86\"},\"securityDocuments\":{}}",
+      "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "a12918ad02c33e79cb63810f5d21f88d92391ace813e04de862bbc8538d97ff6",
+      "mac": "86b59e6a0445b48badadcc8620d77314d5db147ea6295f8d8cc45ec1c1be78f2b18cb642ed07e5977cc71d7f5a05b326d941e36e9781d0b1f4f36fb61eefa8fc"
+    },
+    {
+      "seq": 2,
+      "at": "2026-10-29T12:00:00.130456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-SBOM",
+      "data": "{\"id\":\"ANNEX-I-II-SBOM\",\"note\":\"2 components, format CycloneDX.\",\"requirement\":\"Maintain a machine-readable SBOM of components (CRA Annex I, Part II).\",\"status\":\"pass\"}",
+      "prevHash": "a12918ad02c33e79cb63810f5d21f88d92391ace813e04de862bbc8538d97ff6",
+      "hash": "956e7608c801d39538f1c4e3585e96535c826d90eb846b2c15ba79b29adfc14e",
+      "mac": "17904093db58305e966fcbd05435c87ec5ec9809342bf5cfbf1582512fc739b5f36be13702bcbf68b93613d7fe077ebd50f0a3c610fc1893f58492916c3cf999"
+    },
+    {
+      "seq": 3,
+      "at": "2026-10-29T12:00:00.137456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-SCAN",
+      "data": "{\"id\":\"ANNEX-I-II-SCAN\",\"note\":\"Vulnerability scan ran.\",\"requirement\":\"Apply effective and regular security tests / vulnerability scanning.\",\"status\":\"pass\"}",
+      "prevHash": "956e7608c801d39538f1c4e3585e96535c826d90eb846b2c15ba79b29adfc14e",
+      "hash": "e0f01d79e81c3000de19cc3e98390fa52c47d894da6115856e7f6076f826235c",
+      "mac": "4bf8be0ac91a5442a3185467b3d0e44500c524b0713853cb18f965fe01f4a26288f6f4fb3711ebf550c467c161e0fa8bf157e40fd8e18c367ebc438e89dd3391"
+    },
+    {
+      "seq": 4,
+      "at": "2026-10-29T12:00:00.144456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-I-NO-KNOWN-EXPLOITABLE",
+      "data": "{\"id\":\"ANNEX-I-I-NO-KNOWN-EXPLOITABLE\",\"note\":\"1 critical finding(s).\",\"requirement\":\"Ship without known exploitable vulnerabilities (no Critical at release).\",\"status\":\"fail\"}",
+      "prevHash": "e0f01d79e81c3000de19cc3e98390fa52c47d894da6115856e7f6076f826235c",
+      "hash": "7bbac912935d4f203b6e3d9af8afa273106cb7d92914d20a23f74dbc2237db64",
+      "mac": "0b78a2a3a70efd96330227e5874af11074519fdd63defebcf1924b738ad18ee6e570f6f20c35644f17fc692499ce3702df2905f451d52d94ad128a938b05b68e"
+    },
+    {
+      "seq": 5,
+      "at": "2026-10-29T12:00:00.151456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-REMEDIATE",
+      "data": "{\"id\":\"ANNEX-I-II-REMEDIATE\",\"note\":\"1 high finding(s) to triage.\",\"requirement\":\"Remediate vulnerabilities without undue delay (track High and above).\",\"status\":\"warn\"}",
+      "prevHash": "7bbac912935d4f203b6e3d9af8afa273106cb7d92914d20a23f74dbc2237db64",
+      "hash": "e50b0c368b152b2d32ab76263241d6673489cf2c0c72e4e934e2d146ca6934c8",
+      "mac": "9b8fe6a2565c787f4a92414851171cbcedbaf30ee1a853d56d6032b401128e94b8ccc394d1dc59f80979bf6f1813cceed40195d9f9ff6b64b28d5182aa660106"
+    },
+    {
+      "seq": 6,
+      "at": "2026-10-29T12:00:00.158456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-1-PRODUCT-IDENTITY",
+      "data": "{\"id\":\"ANNEX-I-II-1-PRODUCT-IDENTITY\",\"note\":\"SBOM declares the product as its top-level component (demo-app@1.0.0).\",\"requirement\":\"Declare the product as the SBOM's top-level component (CycloneDX metadata.component) for traceability (CRA Annex I Part II).\",\"status\":\"pass\"}",
+      "prevHash": "e50b0c368b152b2d32ab76263241d6673489cf2c0c72e4e934e2d146ca6934c8",
+      "hash": "ac60ffae8a33fbd4e6621742d539c9380cd4cf0e7626a715e95131d5bdca11b8",
+      "mac": "fb31a2230ec8f71f64365d954a3af783137c5660ccd5eb9e6fbe61fcb4a342296092eb43f04101fa769b8e355b2d577d2d8a7de5979b75dfd57c33eea13acfe9"
+    },
+    {
+      "seq": 7,
+      "at": "2026-10-29T12:00:00.165456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-1-SBOM-PROVENANCE",
+      "data": "{\"id\":\"ANNEX-I-II-1-SBOM-PROVENANCE\",\"note\":\"SBOM is missing metadata.timestamp and/or metadata.tools; cannot evidence when/how it was generated.\",\"requirement\":\"Record when and by which tool the SBOM was generated (metadata.timestamp + metadata.tools) so it is dated and attributable (CRA Annex I Part II).\",\"status\":\"warn\"}",
+      "prevHash": "ac60ffae8a33fbd4e6621742d539c9380cd4cf0e7626a715e95131d5bdca11b8",
+      "hash": "8629d386b67bc215659473f115f854c123512830f9f3c3490d8bf9043b629b0f",
+      "mac": "05202a34f3fecb4168bd3d1c2095de438bb8c53977186bcda6b3560cdac00b3891692785d9bcd98a7025b24e110cf7d16056ddf7f6271c6ac091d70d1e2a6c72"
+    },
+    {
+      "seq": 8,
+      "at": "2026-10-29T12:00:00.172456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-1-COMPONENT-IDENTIFIERS",
+      "data": "{\"id\":\"ANNEX-I-II-1-COMPONENT-IDENTIFIERS\",\"note\":\"2 of 2 components lack a purl/CPE or version (2 missing an identifier, 0 missing a version).\",\"requirement\":\"Give every SBOM component a package identifier (purl/CPE) and a version so it can be matched to vulnerability data (CRA Annex I Part II).\",\"status\":\"warn\"}",
+      "prevHash": "8629d386b67bc215659473f115f854c123512830f9f3c3490d8bf9043b629b0f",
+      "hash": "4d037c419cc1d5e09fdc02c5a341cbf5dc60098c9336ec9fe87ae3cc11718007",
+      "mac": "a03625fb49837c94111cabb6e9ae04b1bd18f710049e7aff540461141dbf2200573c7651b64b9b2c1dfe1695c1a747073156bc086a54d246c2596d3861c26363"
+    },
+    {
+      "seq": 9,
+      "at": "2026-10-29T12:00:00.179456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-1-COMPONENT-LICENSES",
+      "data": "{\"id\":\"ANNEX-I-II-1-COMPONENT-LICENSES\",\"note\":\"Only 0/2 components carry license/SPDX data (0%). Advisory SBOM enrichment, not a CRA requirement.\",\"requirement\":\"Record component license/SPDX data to enrich the SBOM evidence (SBOM-quality signal; the CRA does not mandate per-component licenses).\",\"status\":\"warn\"}",
+      "prevHash": "4d037c419cc1d5e09fdc02c5a341cbf5dc60098c9336ec9fe87ae3cc11718007",
+      "hash": "302f812fb99b86e80d1f5f1711f3a7ee7c97e3840ec460dc317f314a265920b6",
+      "mac": "59615714c7a5722338e28b51c57313078395cc0c3438fedeaffc50cf0bfef7111ad83b67a75921be073178e85eaf47ffdbe31bae77a97e0541e71c79cc2eb669"
+    },
+    {
+      "seq": 10,
+      "at": "2026-10-29T12:00:00.186456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-I-2A-NO-KNOWN-EXPLOITED-KEV",
+      "data": "{\"id\":\"ANNEX-I-I-2A-NO-KNOWN-EXPLOITED-KEV\",\"note\":\"Not evaluated: the Grype database in use carries no known-exploited (KEV) enrichment.\",\"requirement\":\"Ship with no components affected by known-exploited (CISA KEV) vulnerabilities (CRA Annex I Part I, no known exploitable vulnerabilities).\",\"status\":\"warn\"}",
+      "prevHash": "302f812fb99b86e80d1f5f1711f3a7ee7c97e3840ec460dc317f314a265920b6",
+      "hash": "98d7aa30ea13dd3b0f9ac5e2a01ac334c856a603424caae5b6da6ba40d53f59a",
+      "mac": "60b47bcb85c9ea1f1a5c8095026aeb191d3bc6548001efe0a59a2c83ea14d1217360c529d3915064d1bca90c93c25d07701d3f04fcbb1084cd5e9b2e4e597fe4"
+    },
+    {
+      "seq": 11,
+      "at": "2026-10-29T12:00:00.193456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-I-2A-NO-UNFIXABLE-CRITICAL",
+      "data": "{\"id\":\"ANNEX-I-I-2A-NO-UNFIXABLE-CRITICAL\",\"note\":\"No unfixable Critical/High findings detected.\",\"requirement\":\"Document a mitigation or risk decision for Critical/High findings that have no available upstream fix (CRA Annex I Part I/II).\",\"status\":\"pass\"}",
+      "prevHash": "98d7aa30ea13dd3b0f9ac5e2a01ac334c856a603424caae5b6da6ba40d53f59a",
+      "hash": "07177e2978aa97be9ea245217a32c5120cb8684537c16582357a777cd9e267df",
+      "mac": "66b33efc103f682478e81c6e34b06b15401bde8d21b41779d89cca2b1ade7aeac59a04e91337bc1357770d45fcc019668974adc37e766b207e4f353de0d9d459"
+    },
+    {
+      "seq": 12,
+      "at": "2026-10-29T12:00:00.200456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-2-FIX-AVAILABILITY",
+      "data": "{\"id\":\"ANNEX-I-II-2-FIX-AVAILABILITY\",\"note\":\"1 High+ finding(s) have an available fixed version still present; apply the security update.\",\"requirement\":\"Apply available security updates: surface High+ findings that already have a fixed version (CRA Annex I Part II, remediate without undue delay).\",\"status\":\"warn\"}",
+      "prevHash": "07177e2978aa97be9ea245217a32c5120cb8684537c16582357a777cd9e267df",
+      "hash": "d6eab2fb21e8e9e25b7b9fa8da54671ce2d272c56153e66d0dadc8bffc68d582",
+      "mac": "a2f9b54d4b8e1b5e1a6911bbc5f5b83eed922c6b6f83658a647da7dc1cdd280df799af5bf6e5350cb3b1864c8506e30d7cb73c4f20e263edb13a301ee191a1cb"
+    },
+    {
+      "seq": 13,
+      "at": "2026-10-29T12:00:00.207456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-3-SCAN-FRESHNESS",
+      "data": "{\"id\":\"ANNEX-I-II-3-SCAN-FRESHNESS\",\"note\":\"Scan DB freshness unknown (descriptor.db.built absent or unparseable).\",\"requirement\":\"Run vulnerability scans against a recently-updated database, evidencing regular testing (CRA Annex I Part II).\",\"status\":\"warn\"}",
+      "prevHash": "d6eab2fb21e8e9e25b7b9fa8da54671ce2d272c56153e66d0dadc8bffc68d582",
+      "hash": "8ce728bed5f23fe8e73eb1b4e962ba5f02e79981da1139839ad8c6d6dfcb132f",
+      "mac": "0adf07cbd8fb14a3c0e2e44123f1f250a9c9316d801d713309764c7138e289a5f50f11d23eedf65476f7624037ca7aaeab87c4ed231ac5579ee8325290d65197"
+    },
+    {
+      "seq": 14,
+      "at": "2026-10-29T12:00:00.214456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-5-CVD-POLICY",
+      "data": "{\"id\":\"ANNEX-I-II-5-CVD-POLICY\",\"note\":\"Declared, not verified: only a security contact was declared in the run input. No SECURITY.md or security.txt was supplied, so no policy document was checked.\",\"requirement\":\"Publish a coordinated-vulnerability-disclosure policy / security contact (SECURITY.md or security.txt) (CRA Annex I Part II points 5-6; Article 13).\",\"status\":\"warn\"}",
+      "prevHash": "8ce728bed5f23fe8e73eb1b4e962ba5f02e79981da1139839ad8c6d6dfcb132f",
+      "hash": "d81514ca3329ff9137ed9f93ae23b5fca542455109ebb2999863023950999b3b",
+      "mac": "0c98669af4ef35fd780b2c8d60567ab7fb862fa504147dee672bd3755a59c094d8eb413126a737da489bf79150fdc98b746db7e5434152b980c5a0252717c961"
+    },
+    {
+      "seq": 15,
+      "at": "2026-10-29T12:00:00.221456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.check.recorded",
+      "resource": "check/ANNEX-I-II-6-SECURITY-TXT",
+      "data": "{\"id\":\"ANNEX-I-II-6-SECURITY-TXT\",\"note\":\"No security.txt at .well-known/security.txt or /security.txt; a SECURITY.md may still satisfy point (6).\",\"requirement\":\"Provide a machine-discoverable security contact via an RFC 9116 security.txt (CRA Annex I Part II point 6).\",\"status\":\"warn\"}",
+      "prevHash": "d81514ca3329ff9137ed9f93ae23b5fca542455109ebb2999863023950999b3b",
+      "hash": "39553178c8ddc5f9b768eb2f89861992b904bd0714e694b32d287c1c102add05",
+      "mac": "f0308ffdc980bb5e236f1cb4e750d56f3776c7fee68111a96838cbb635dc4353adbd99626220d3e8b54f68769a99c9ccea264405f6bdbcbba46a2cbd93113ea6"
+    },
+    {
+      "seq": 16,
+      "at": "2026-10-29T12:00:00.228456+00:00",
+      "actor": "cra-check:e511942d43fb1021",
+      "action": "cra.report.sealed",
+      "resource": "product/demo-app",
+      "data": "{\"evidenceSha256\":\"fdcea4d630dcbb428d32f27e1471c16bc4c05e410f2153d69db85df8798c3dbb\",\"generatedAt\":\"2026-10-29T12:00:00Z\",\"reportSha256\":\"e1c25ca5450f599a9f7321cbd96322534ee37907e7518800208e2da19fe93350\",\"summary\":{\"fail\":1,\"pass\":4,\"total\":14,\"warn\":9}}",
+      "prevHash": "39553178c8ddc5f9b768eb2f89861992b904bd0714e694b32d287c1c102add05",
+      "hash": "af335baba9f9da8017e585dbe7f871dfb4b8607eab5c3197cb0b028d76ab377b",
+      "mac": "4d1e82cf47aa52642a9e19df24db1f34f929b68684e72e093a7a87e4fae9513e22cd493998c27f2ddf06194626e263e2d9c9312d6ef8293893de80e7df0209de"
+    }
+  ],
+  "format": "cra-check-sealed/1",
+  "signer": {
+    "algorithm": "ECDSA-P256-SHA256",
+    "keyId": "e511942d43fb1021461723108e509db71eebf5f7ecfb1787991bd5cab47b6cba"
+  }
+}

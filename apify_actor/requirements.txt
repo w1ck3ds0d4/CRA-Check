@@ -1,1 +1,2 @@
 apify==4.1.0
+cryptography==49.0.0
