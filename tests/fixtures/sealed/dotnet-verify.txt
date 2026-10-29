@@ -1,0 +1,7 @@
+ProofLog commit 746a053cb49a97691b8919dfcca291210ecf8c7b, .NET SDK 10.0.204
+$ Verifier sealed.json TEST-ONLY-public-key.b64
+PROOFLOG VERIFY OK: 16 records, signed=True, head and count match
+(exit 0)
+$ Verifier sealed.json <a different public key>
+PROOFLOG VERIFY FAILED: ok=False at #1: signature (ECDSA-P256-SHA256) mismatch - record was not produced with this signing key, headAndCountMatch=True
+(exit 1)

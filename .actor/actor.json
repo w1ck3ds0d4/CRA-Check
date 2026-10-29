@@ -2,7 +2,7 @@
   "actorSpecification": 1,
   "name": "cra-gap-check",
   "title": "EU CRA gap check from an SBOM",
-  "description": "Turns a CycloneDX or SPDX SBOM, an optional Grype scan and a few product facts into a 14-check EU Cyber Resilience Act evidence report.",
+  "description": "Turns a CycloneDX or SPDX SBOM, an optional Grype scan and a few product facts into a 14-check EU Cyber Resilience Act evidence report. Optionally signs it so anyone with the public key can check later that it was not altered.",
   "version": "0.1",
   "buildTag": "latest",
   "dockerfile": "./Dockerfile",
@@ -14,13 +14,13 @@
     "dataset": {
       "actorSpecification": 1,
       "title": "CRA gap report",
-      "description": "One item per run: every gap check and the vulnerability counts.",
+      "description": "One item per run: every gap check, the vulnerability counts and, for a sealed run, the seal details.",
       "views": {
         "overview": {
           "title": "Gap checks",
           "description": "Summary and every gap check of the run.",
           "transformation": {
-            "fields": ["product.name", "product.version", "generatedAt", "summary", "vulnerabilities.counts", "craChecks", "reportUrl", "evidenceUrl"]
+            "fields": ["product.name", "product.version", "generatedAt", "summary", "vulnerabilities.counts", "craChecks", "reportUrl", "evidenceUrl", "sealedUrl"]
           },
           "display": {
             "component": "table",
@@ -32,7 +32,8 @@
               "vulnerabilities.counts": {"label": "Vulnerabilities by severity", "format": "object"},
               "craChecks": {"label": "Gap checks", "format": "array"},
               "reportUrl": {"label": "Report (cra-report.md)", "format": "link"},
-              "evidenceUrl": {"label": "Evidence (cra-evidence.json)", "format": "link"}
+              "evidenceUrl": {"label": "Evidence (cra-evidence.json)", "format": "link"},
+              "sealedUrl": {"label": "Sealed report (cra-evidence-sealed.json)", "format": "link"}
             }
           }
         }

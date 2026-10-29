@@ -24,3 +24,6 @@
 *.mp3  binary
 *.wav  binary
 *.mp4  binary
+
+# The golden sealed report hashes these exact bytes: never normalise their line endings.
+tests/fixtures/sealed/report.md -text
