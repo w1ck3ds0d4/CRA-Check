@@ -1,6 +1,6 @@
 # Official Apify Python base image, pinned by digest (python 3.13, published 2026-10-26).
 # Bump the digest on purpose after checking the new image; never track a moving tag.
-FROM apify/actor-python:3.13@sha256:134b21518882ef053a9f7b1b17f5d5246efc026cd9ef9c2c69d0f7b7f723c56f
+FROM apify/actor-python:3.14@sha256:8da4d45fdf043726d872639a6ba03bc38af2fc5e74703ca222cf4fb0955e2204
 
 COPY apify_actor/requirements.txt ./apify_actor/requirements.txt
 RUN python -m pip install --no-cache-dir -r apify_actor/requirements.txt
